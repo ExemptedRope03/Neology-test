@@ -1,0 +1,57 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE y editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans
+.sts4-cache/
+.c9/
+*.launch
+*.sublime-workspace
+.history/
+
+# Spring Boot / Maven (parking)
+parking/target/
+parking/*.log
+parking/hs_err_pid*.log
+
+# Angular / Node (parking-page)
+parking-page/node_modules/
+parking-page/dist/
+parking-page/.angular/cache/
+parking-page/coverage/
+parking-page/out-tsc/
+parking-page/tmp/
+parking-page/bazel-out/
+parking-page/.sass-cache/
+parking-page/connect.lock
+parking-page/testem.log
+parking-page/typings/
+parking-page/libpeerconnection.log
+parking-page/npm-debug.log*
+parking-page/yarn-debug.log*
+parking-page/yarn-error.log*
+parking-page/pnpm-debug.log*
+
+# Configuración local y secretos: se conservan las plantillas versionables
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

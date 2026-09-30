@@ -1,0 +1,26 @@
+# Texto con saltos de línea homogéneos en todos los entornos
+* text=auto eol=lf
+
+# Scripts de Windows conservan CRLF; el wrapper Maven y scripts Unix usan LF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+**/mvnw text eol=lf
+*.sh text eol=lf
+
+# Archivos binarios que Git no debe normalizar ni mostrar como texto
+*.class binary
+*.jar binary
+*.war binary
+*.zip binary
+*.gz binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
