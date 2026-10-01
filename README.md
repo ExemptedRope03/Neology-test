@@ -109,6 +109,8 @@ Listado de vehículos con búsqueda por placa, ordenamiento, paginación y accio
 ## Perfiles de base de datos H2
 
 El backend tiene dos perfiles para elegir el tipo de base de datos.
+La base de datos se puede consultar una vez desplegada la aplicacion aqui:
+   - http://localhost:8080/h2-console/
 
 ### Base limpia en memoria (predeterminada)
 
