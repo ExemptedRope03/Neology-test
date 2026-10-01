@@ -1,0 +1,110 @@
+<app-page-header title="Panel de estacionamiento" subtitle="Resumen operativo en tiempo real">
+  <button mat-stroked-button (click)="load()">
+    <mat-icon>refresh</mat-icon>
+    Actualizar
+  </button>
+</app-page-header>
+
+<section class="metrics-grid">
+  <mat-card class="metric-card primary">
+    <mat-card-content>
+      <mat-icon>local_parking</mat-icon>
+      <div>
+        <span>Vehículos en estacionamiento</span>
+        <strong>{{ parkedVehicles }}</strong>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="metric-card resident">
+    <mat-card-content>
+      <mat-icon>home</mat-icon>
+      <div>
+        <span>Residentes estacionados</span>
+        <strong>{{ countByType('RESIDENT') }}</strong>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="metric-card official">
+    <mat-card-content>
+      <mat-icon>badge</mat-icon>
+      <div>
+        <span>Oficiales estacionados</span>
+        <strong>{{ countByType('OFFICIAL') }}</strong>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="metric-card visitor">
+    <mat-card-content>
+      <mat-icon>directions_car</mat-icon>
+      <div>
+        <span>No residentes estacionados</span>
+        <strong>{{ countByType('NON_RESIDENT') }}</strong>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<p *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</p>
+
+<section class="stays-section">
+  <h2>Estancias de vehículos</h2>
+  <p>Consulta las entradas, salidas, estado actual y costo de cada estancia.</p>
+
+  <div class="table-wrap">
+    <table mat-table [dataSource]="stays">
+      <ng-container matColumnDef="placa">
+        <th mat-header-cell *matHeaderCellDef>Placa</th>
+        <td mat-cell *matCellDef="let stay">{{ stay.placa }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.tipoVehiculo | vehicleTypeLabel }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="entrada">
+        <th mat-header-cell *matHeaderCellDef>Entrada</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.fechaHoraEntrada | date:'short' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="salida">
+        <th mat-header-cell *matHeaderCellDef>Salida</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.fechaHoraSalida ? (stay.fechaHoraSalida | date:'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let stay">
+          <span [class.pending]="stay.pendiente" [class.completed]="!stay.pendiente">
+            {{ stay.pendiente ? 'Pendiente' : 'Finalizada' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="costo">
+        <th mat-header-cell *matHeaderCellDef>Costo</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.costo | currency:'USD':'symbol':'1.2-2' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+
+    <p class="empty" *ngIf="!loading && !errorMessage && !stays.length">
+      No hay estancias registradas todavía.
+    </p>
+  </div>
+</section>

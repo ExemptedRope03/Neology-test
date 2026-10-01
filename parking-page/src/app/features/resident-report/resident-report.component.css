@@ -1,0 +1,53 @@
+.report-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.report-actions mat-form-field {
+  width: min(100%, 320px);
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  padding: 18px;
+  margin: 4px 0 20px;
+  background: #e8f5e9;
+  border-radius: 8px;
+}
+
+.total span {
+  color: #386a20;
+  font-size: 13px;
+}
+
+.total strong {
+  margin-top: 5px;
+  font-size: 26px;
+}
+
+.table-wrap {
+  overflow: auto;
+  border: 1px solid #e1e3e1;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 620px;
+}
+
+.empty {
+  padding: 22px;
+  color: #5f6368;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .report-actions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,57 @@
+.filter {
+  width: min(100%, 420px);
+}
+
+.list-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.table-wrap {
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #e1e3e1;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 680px;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  color: #1d6b32;
+  background: #e6f4ea;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status--inactive {
+  color: #9a3412;
+  background: #ffedd5;
+}
+
+.empty {
+  padding: 22px;
+  color: #5f6368;
+  text-align: center;
+}
+
+.error-message {
+  padding: 14px 16px;
+  margin: 0 0 16px;
+  color: #b3261e;
+  background: #ffebee;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .list-actions {
+    flex-direction: column;
+  }
+}

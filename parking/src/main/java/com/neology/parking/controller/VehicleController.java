@@ -1,16 +1,25 @@
 package com.neology.parking.controller;
 
-import com.neology.parking.dto.CreateVehicleRequest;
-import com.neology.parking.dto.VehicleResponse;
-import com.neology.parking.entity.VehicleType;
-import com.neology.parking.service.VehicleService;
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.neology.parking.dto.CreateVehicleRequest;
+import com.neology.parking.dto.VehicleDetailResponse;
+import com.neology.parking.dto.VehicleResponse;
+import com.neology.parking.dto.UpdateVehicleStatusRequest;
+import com.neology.parking.entity.VehicleType;
+import com.neology.parking.service.VehicleService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/neo/vehiculos")
@@ -22,21 +31,37 @@ public class VehicleController {
     }
 
     @PostMapping("/oficiales")
-    public ResponseEntity<VehicleResponse> createOfficial(@Valid @RequestBody CreateVehicleRequest request) {
-        return create(request, VehicleType.OFFICIAL);
+    @ResponseStatus(HttpStatus.CREATED)
+    public VehicleResponse createOfficial(@Valid @RequestBody CreateVehicleRequest request) {
+        return vehicleService.create(request, VehicleType.OFFICIAL);
     }
 
     @PostMapping("/residentes")
-    public ResponseEntity<VehicleResponse> createResident(@Valid @RequestBody CreateVehicleRequest request) {
-        return create(request, VehicleType.RESIDENT);
+    @ResponseStatus(HttpStatus.CREATED)
+    public VehicleResponse createResident(@Valid @RequestBody CreateVehicleRequest request) {
+        return vehicleService.create(request, VehicleType.RESIDENT);
     }
 
     @PostMapping("/no-residentes")
-    public ResponseEntity<VehicleResponse> createNonResident(@Valid @RequestBody CreateVehicleRequest request) {
-        return create(request, VehicleType.NON_RESIDENT);
+    @ResponseStatus(HttpStatus.CREATED)
+    public VehicleResponse createNonResident(@Valid @RequestBody CreateVehicleRequest request) {
+        return vehicleService.create(request, VehicleType.NON_RESIDENT);
     }
 
-    private ResponseEntity<VehicleResponse> create(CreateVehicleRequest request, VehicleType type) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(vehicleService.create(request, type));
+    @GetMapping
+    public List<VehicleResponse> list() {
+        return vehicleService.list();
+    }
+
+    @PatchMapping("/{placa}")
+    public VehicleResponse changeStatus(
+            @PathVariable String placa,
+            @Valid @RequestBody UpdateVehicleStatusRequest request) {
+        return vehicleService.changeStatus(placa, request);
+    }
+
+    @GetMapping("/{placa}")
+    public VehicleDetailResponse detail(@PathVariable String placa) {
+        return vehicleService.detail(placa);
     }
 }

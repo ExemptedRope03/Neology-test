@@ -1,0 +1,10 @@
+.danger-card {
+  max-width: 680px;
+  border-left: 4px solid #b3261e;
+}
+
+mat-card-content p {
+  margin: 20px 0 4px;
+  color: #5f6368;
+  line-height: 1.6;
+}

@@ -1,0 +1,32 @@
+<app-page-header
+  title="Configuración"
+  subtitle="Acciones administrativas del estacionamiento"
+></app-page-header>
+
+<mat-card class="danger-card">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>event_repeat</mat-icon>
+    <mat-card-title>Iniciar nuevo mes</mat-card-title>
+    <mat-card-subtitle>Reinicio de información mensual</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>
+      Esta acción elimina todas las estancias, incluidas las pendientes, y
+      reinicia los minutos acumulados de los residentes. Los vehículos
+      registrados se conservarán.
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="startNewMonth()"
+      [disabled]="resettingMonth"
+    >
+      <mat-icon>restart_alt</mat-icon>
+      {{ resettingMonth ? 'Reiniciando...' : 'Iniciar nuevo mes' }}
+    </button>
+  </mat-card-actions>
+</mat-card>

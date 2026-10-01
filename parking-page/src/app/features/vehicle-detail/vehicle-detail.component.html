@@ -1,0 +1,76 @@
+<app-page-header title="Detalle de vehículo" subtitle="Estancias y estado de pago">
+  <a mat-button routerLink="/vehiculos">
+    <mat-icon>arrow_back</mat-icon>
+    Volver
+  </a>
+</app-page-header>
+
+<p *ngIf="error" class="error">
+  No fue posible cargar el vehículo. Verifica que exista y que el backend esté activo.
+</p>
+
+<ng-container *ngIf="vehicle as v">
+  <section class="summary">
+    <mat-card>
+      <mat-card-content>
+        <span>Placa</span>
+        <strong>{{ v.placa }}</strong>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <span>Tipo</span>
+        <strong>{{ v.tipo | vehicleTypeLabel }}</strong>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="v.minutosAcumulados !== null">
+      <mat-card-content>
+        <span>Minutos acumulados</span>
+        <strong>{{ v.minutosAcumulados }}</strong>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="v.pagoAcumulado !== null">
+      <mat-card-content>
+        <span>Pago acumulado</span>
+        <strong>{{ v.pagoAcumulado | currency:'USD':'symbol':'1.2-2' }}</strong>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <h2>Estancias</h2>
+
+  <div class="table-wrap">
+    <table mat-table [dataSource]="v.estancias">
+      <ng-container matColumnDef="entrada">
+        <th mat-header-cell *matHeaderCellDef>Entrada</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.fechaHoraEntrada | date:'medium' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="salida">
+        <th mat-header-cell *matHeaderCellDef>Salida</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.fechaHoraSalida ? (stay.fechaHoraSalida | date:'medium') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let stay">
+          {{ stay.fechaHoraSalida ? 'Finalizada' : 'En curso' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+
+    <p *ngIf="!v.estancias.length" class="empty">
+      Aún no hay estancias registradas.
+    </p>
+  </div>
+</ng-container>

@@ -1,0 +1,29 @@
+mat-dialog-content {
+  min-width: 340px;
+}
+
+.description {
+  margin: 0 0 18px;
+  color: #5f6368;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.error-message {
+  margin: 0 0 8px;
+  color: #b3261e;
+}
+
+@media (max-width: 480px) {
+  mat-dialog-content {
+    min-width: auto;
+  }
+}

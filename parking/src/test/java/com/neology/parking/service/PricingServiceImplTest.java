@@ -3,11 +3,12 @@ package com.neology.parking.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.neology.parking.entity.VehicleType;
+import com.neology.parking.service.impl.PricingServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class PricingServiceTest {
-    private final PricingService pricingService = new PricingService(List.of(
+class PricingServiceImplTest {
+    private final PricingService pricingService = new PricingServiceImpl(List.of(
             new OfficialPricingPolicy(), new ResidentPricingPolicy(), new NonResidentPricingPolicy()));
 
     @Test

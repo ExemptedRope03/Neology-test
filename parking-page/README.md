@@ -1,27 +1,23 @@
-# ParkingPage
+# Parking Neology - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Aplicación Angular 17 con Angular Material para operar el backend Spring Boot de `../parking`.
 
-## Development server
+## Puesta en marcha
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Inicia el backend: desde `../parking`, ejecuta `./mvnw spring-boot:run`.
+2. Instala las dependencias del frontend: `npm install`.
+3. Inicia Angular: `npm start`.
+4. Abre `http://localhost:4200`.
 
-## Code scaffolding
+La URL de la API es `http://localhost:8080/neo` y está centralizada en `src/environments/environment.ts`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Pantallas
 
-## Build
+- Panel: alta de vehículos oficiales, residentes o no residentes e inicio de mes.
+- Vehículos: listado con filtro por placa, orden, paginación y acceso al detalle.
+- Estancias: registro de entrada y salida.
+- Pagos residentes: informe mensual y total acumulado.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Calidad
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Los formularios usan Reactive Forms y validan placas antes de enviar datos. Angular escapa el contenido interpolado y la utilidad de placas elimina caracteres no admitidos. Las pruebas se ejecutan con `npm test` (Jasmine + Karma).

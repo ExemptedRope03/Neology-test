@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Crear vehículo</h2>
+
+<mat-dialog-content>
+  <p class="description">
+    Registra una placa para poder controlar sus estancias y cobros.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="save()" id="vehicle-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Placa</mat-label>
+      <input
+        matInput
+        formControlName="placa"
+        maxlength="20"
+        pattern="[A-Za-z0-9-]{3,20}"
+        autocomplete="off"
+        placeholder="Ej. ABC-123"
+      >
+      <mat-error>
+        Ingresa una placa válida: 3 a 20 letras, números o guiones.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de vehículo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option value="RESIDENT">Residente</mat-option>
+        <mat-option value="OFFICIAL">Oficial</mat-option>
+        <mat-option value="NON_RESIDENT">No residente</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <p *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </p>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()" [disabled]="saving">
+    Cancelar
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    form="vehicle-form"
+    [disabled]="saving"
+  >
+    {{ saving ? 'Guardando...' : 'Crear vehículo' }}
+  </button>
+</mat-dialog-actions>

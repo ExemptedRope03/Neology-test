@@ -1,0 +1,89 @@
+<app-page-header title="Vehículos" subtitle="Consulta y filtra el catálogo registrado">
+  <button mat-stroked-button (click)="load()">
+    <mat-icon>refresh</mat-icon>
+    Actualizar
+  </button>
+</app-page-header>
+
+<section class="list-actions">
+  <mat-form-field appearance="outline" class="filter">
+    <mat-label>Filtrar por placa</mat-label>
+    <input
+      matInput
+      (input)="filter($any($event.target).value)"
+      placeholder="Ej. ABC-123"
+    >
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" (click)="openCreateVehicleDialog()">
+    <mat-icon>add</mat-icon>
+    Agregar vehículo
+  </button>
+</section>
+
+<p *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</p>
+
+<div class="table-wrap">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="placa">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Placa</th>
+      <td mat-cell *matCellDef="let vehicle">{{ vehicle.placa }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+      <td mat-cell *matCellDef="let vehicle">
+        {{ vehicle.tipo | vehicleTypeLabel }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+      <td mat-cell *matCellDef="let vehicle">
+        <span class="status" [class.status--inactive]="vehicle.status === 'INACTIVE'">
+          {{ vehicle.status === 'ACTIVE' ? 'Activo' : 'Inactivo' }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let vehicle">
+        <button mat-button color="primary" (click)="detail(vehicle.placa)">
+          Detalle
+        </button>
+        <button
+          *ngIf="vehicle.status === 'ACTIVE'"
+          mat-button
+          color="warn"
+          (click)="changeStatus(vehicle, 'INACTIVE')"
+        >
+          Deshabilitar
+        </button>
+        <button
+          *ngIf="vehicle.status === 'INACTIVE'"
+          mat-button
+          color="primary"
+          (click)="changeStatus(vehicle, 'ACTIVE')"
+        >
+          Habilitar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+
+  <p class="empty" *ngIf="!loading && !errorMessage && !dataSource.filteredData.length">
+    No se encontraron vehículos.
+  </p>
+</div>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 25]"
+  showFirstLastButtons
+></mat-paginator>

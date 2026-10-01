@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
 
 @Component
-class NonResidentPricingPolicy implements PricingPolicy {
+public class NonResidentPricingPolicy implements PricingPolicy {
     private static final BigDecimal RATE_PER_MINUTE = new BigDecimal("0.50");
     public boolean supports(VehicleType type) { return type == VehicleType.NON_RESIDENT; }
     public BigDecimal calculate(long minutes) { return RATE_PER_MINUTE.multiply(BigDecimal.valueOf(minutes)); }
